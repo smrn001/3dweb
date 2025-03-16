@@ -20,14 +20,22 @@ renderer.setSize(window.innerWidth, window.innerHeight);
 document.getElementById("hero-model").appendChild(renderer.domElement);
 
 // Load the .glb model
-let model;
+let model, mixer;
 const loader = new GLTFLoader();
 loader.load(
-  "./assets/a_horror_monster.glb",
+  "./assets/earth_hologram.glb",
   (gltf) => {
     model = gltf.scene;
-    model.position.set(0, -1, 0); // Adjust model position
+    model.position.set(-1, -1, -2); // Adjust model position
     scene.add(model);
+
+    // Set up animation mixer if there are animations
+    if (gltf.animations && gltf.animations.length) {
+      mixer = new THREE.AnimationMixer(model);
+      gltf.animations.forEach((clip) => {
+        mixer.clipAction(clip).play();
+      });
+    }
   },
   undefined,
   (error) => console.error(error)
@@ -36,6 +44,38 @@ loader.load(
 // Lighting
 const light = new THREE.AmbientLight(0xffffff, 1);
 scene.add(light);
+
+// Variables for mouse interaction
+let isDragging = false;
+let previousMousePosition = { x: 0, y: 0 };
+
+// Mouse event listeners
+renderer.domElement.addEventListener("mousedown", (event) => {
+  isDragging = true;
+});
+
+renderer.domElement.addEventListener("mouseup", () => {
+  isDragging = false;
+});
+
+renderer.domElement.addEventListener("mousemove", (event) => {
+  if (isDragging && model) {
+    const deltaX = event.clientX - previousMousePosition.x;
+    const deltaY = event.clientY - previousMousePosition.y;
+
+    // Rotate the model based on mouse movement
+    model.rotation.y += deltaX * 0.005; // Adjust rotation sensitivity
+    model.rotation.x += deltaY * 0.005; // Adjust rotation sensitivity
+
+    // Keep the rotation within limits
+    model.rotation.x = Math.max(
+      -Math.PI / 2,
+      Math.min(Math.PI / 2, model.rotation.x)
+    );
+  }
+
+  previousMousePosition = { x: event.clientX, y: event.clientY };
+});
 
 // Handle resizing
 window.addEventListener("resize", () => {
@@ -48,9 +88,9 @@ window.addEventListener("resize", () => {
 function animate() {
   requestAnimationFrame(animate);
 
-  // Rotate the model (if it is loaded)
-  if (model) {
-    model.rotation.y += 0.001; // Adjust the rotation speed (radians per frame)
+  // Update animation mixer if exists
+  if (mixer) {
+    mixer.update(0.01); // Adjust the speed of the animation
   }
 
   renderer.render(scene, camera);
