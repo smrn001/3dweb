@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Samir Kharayoo 3D Web Designe</title>
+    <link rel="stylesheet" href="./styles.css" />
+
+    <!-- this is for font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <main>
+      <div id="hero">
+        <div class="overlay"></div>
+        <div class="hero-content">
+          <div class="hero-text">
+            <h1>Vibrant <br />design</h1>
+            <h2>That changes</h2>
+            <p>
+              Real life transformation happens through creative approach and
+              innovation
+            </p>
+            <button class="hero-btn">Learn more</button>
+          </div>
+          <div class="hero-model" id="hero-model"></div>
+        </div>
+      </div>
+      <div class="container">
+        <div class="header">
+          <h1>We deliver</h1>
+          <p>
+            We create original designs with a lively emotional response and
+            clear communication. Our cross-functional teams create products at
+            the intersection of systemic, emotional, and strategic approaches.
+            Uncommon, custom, and exceptional in every way.
+          </p>
+        </div>
+
+        <div class="services">
+          <div class="service">
+            <span class="number">1</span>
+            <h2>Web</h2>
+            <ul>
+              <li>Corporate websites</li>
+              <li>Creative websites</li>
+              <li>Application design</li>
+              <li>E-commerce</li>
+              <li>Landing pages</li>
+            </ul>
+          </div>
+
+          <div class="service">
+            <span class="number">2</span>
+            <h2>Branding</h2>
+            <ul>
+              <li>Naming & slogan</li>
+              <li>Package design</li>
+              <li>Brand identity</li>
+              <li>Pitch decks</li>
+              <li>Corporate mascot</li>
+              <li>Creative advertising</li>
+              <li>Digital identity</li>
+            </ul>
+          </div>
+
+          <div class="service">
+            <span class="number">3</span>
+            <h2>Strategy</h2>
+            <ul>
+              <li>Qualitative research</li>
+              <li>Digital strategy</li>
+              <li>Brand strategy</li>
+              <li>Communication strategy</li>
+              <li>Advertising strategy</li>
+            </ul>
+          </div>
+
+          <div class="service">
+            <span class="number">4</span>
+            <h2>Video</h2>
+            <ul>
+              <li>Social videos</li>
+              <li>Video explainers</li>
+              <li>Product videos</li>
+              <li>Promo and SMM reels</li>
+              <li>Animated videos</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="contact">
+          <button>Get in touch</button>
+          <p>
+            Bambuk dreams about creating an implemented design that offers
+            stunning transformation in the real world.
+          </p>
+        </div>
+      </div>
+    </main>
+
+    <script type="module" src="./script.js"></script>
+
+    <script>
+      window.addEventListener("scroll", function () {
+        const heroText = document.querySelector(".hero-text");
+        const heroSection = document.getElementById("hero");
+        const heroHeight = heroSection.offsetHeight;
+
+        if (window.scrollY > heroHeight / 20) {
+          heroText.classList.add("fade-out");
+        } else {
+          heroText.classList.remove("fade-out");
+        }
+      });
+
+      document.addEventListener("scroll", function () {
+        const heroModel = document.querySelector("#hero #hero-model");
+        const scrollPosition = window.scrollY;
+
+        if (scrollPosition > 100) {
+          heroModel.classList.add("shrink");
+        } else {
+          heroModel.classList.remove("shrink");
+        }
+      });
+    </script>
+  </body>
+</html>
